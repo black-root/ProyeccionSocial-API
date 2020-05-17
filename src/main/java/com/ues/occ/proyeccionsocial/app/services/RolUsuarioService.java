@@ -11,7 +11,8 @@ import com.ues.occ.proyeccionsocial.app.entities.RolUsuario;
 
 @Service
 public class RolUsuarioService {
-
+	
+	
 	@Autowired
 	private RolUsuarioDao rolUsuarioDao;
 

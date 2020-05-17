@@ -29,6 +29,12 @@ public class RolUsuario implements Serializable{
 	public RolUsuario() {
 	}
 	
+	public RolUsuario(Integer rolID, String descripcion) {
+		super();
+		this.rolID = rolID;
+		this.descripcion = descripcion;
+	}
+
 	public Integer getRolID() {
 		return rolID;
 	}

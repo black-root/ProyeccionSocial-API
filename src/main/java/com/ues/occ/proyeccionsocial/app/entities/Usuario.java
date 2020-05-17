@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
 	@Column(length = 45, nullable = false)
 	private String clave;
 
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private RolUsuario rolUsuario;
 
 	protected Usuario() {
