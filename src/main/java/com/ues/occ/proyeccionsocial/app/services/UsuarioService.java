@@ -6,20 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ues.occ.proyeccionsocial.app.dao.RolUsuarioDao;
 import com.ues.occ.proyeccionsocial.app.dao.UsuarioDao;
 import com.ues.occ.proyeccionsocial.app.entities.Usuario;
 
 @Service
 public class UsuarioService {
-	
+
 	@Autowired
 	private UsuarioDao usuarioDao;
 	
-	public Iterable<Usuario> findAllUsuarios(){
+	@Autowired
+	private RolUsuarioDao rolUsuarioDao;
+
+	public Iterable<Usuario> findAllUsuarios() {
 		return usuarioDao.findAll();
 	}
-	
-	public List<Object> getCustomaized(){
+
+	public List<Object> getCustomaized() {
 		return usuarioDao.getUserCustomaized();
 	}
 
@@ -34,13 +38,24 @@ public class UsuarioService {
 		return usuarioDao.save(entity);
 	}
 
-	public Usuario updateUsuario(Usuario entity) {
-		// TODO Auto-generated method stub
-		return usuarioDao.save(entity);
+	public Usuario updateUsuario(Usuario entity, Integer id) {
+		if (usuarioDao.findById(id) != null) {
+			Optional<Usuario> u = usuarioDao.findById(id);
+			u.get().setNombre(entity.getNombre().toUpperCase());
+			u.get().setApellido(entity.getApellido().toUpperCase());
+			u.get().setEmail(entity.getEmail());
+			u.get().setClave(entity.getClave());
+			u.get().getRolUsuario().setRolID(entity.getRolUsuario().getRolID());
+			u.get().getRolUsuario().setDescripcion(rolUsuarioDao.findById(id).get().getDescripcion());
+			return usuarioDao.save(u.get());
+		} else {
+			return null;
+		}
+		
 	}
 
 	public void deleteUsuario(Integer id) {
 		usuarioDao.deleteById(id);
-		
+
 	}
 }
