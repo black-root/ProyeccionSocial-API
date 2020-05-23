@@ -33,13 +33,10 @@ public class RolUsuarioService {
 		rolUsuarioDao.deleteById(id);
 	}
 
-	public RolUsuario updateRolUsuario(RolUsuario entity) throws IllegalArgumentException{
-		if (rolUsuarioDao.findById(entity.getRolID()) != null) {
-			return rolUsuarioDao.save(entity);
-		} else {
-			return null;
-		}
-
+	public RolUsuario updateRolUsuario(RolUsuario entity, int rolID) throws IllegalArgumentException{
+			Optional<RolUsuario> ru = rolUsuarioDao.findById(rolID);
+			ru.get().setDescripcion(entity.getDescripcion().toUpperCase());
+			return rolUsuarioDao.save(ru.get());
 	}
 
 	public List<RolUsuario> getDescripcion(String descripcion) {

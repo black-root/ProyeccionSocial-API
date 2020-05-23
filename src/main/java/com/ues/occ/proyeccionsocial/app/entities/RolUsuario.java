@@ -29,10 +29,9 @@ public class RolUsuario implements Serializable{
 	public RolUsuario() {
 	}
 	
-	public RolUsuario(Integer rolID, String descripcion) {
+	public RolUsuario(String descripcion) {
 		super();
-		this.rolID = rolID;
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.toUpperCase();
 	}
 
 	public Integer getRolID() {

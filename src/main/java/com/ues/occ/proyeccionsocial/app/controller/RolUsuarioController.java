@@ -18,7 +18,7 @@ import com.ues.occ.proyeccionsocial.app.services.RolUsuarioService;
 
 @RestController
 @RequestMapping(value = "/api/proyeccion-social/rol-usuario")
-public class RolUsuarioRest {
+public class RolUsuarioController {
 
 	@Autowired
 	private RolUsuarioService rolUsuarioService;
@@ -43,9 +43,9 @@ public class RolUsuarioRest {
 		rolUsuarioService.deleteRolUsuario(id);
 	}
 	
-	@PutMapping(value = "/update")
-	public RolUsuario updateRolUsuario(@RequestBody RolUsuario entity) {
-		return rolUsuarioService.updateRolUsuario(entity);
+	@PutMapping(value = "/update/{id}")
+	public RolUsuario updateRolUsuario(@RequestBody RolUsuario entity, @PathVariable("id") Integer id) {	
+		return rolUsuarioService.updateRolUsuario(entity, id);
 	}
 	
 	@GetMapping( value = "/descripcion/{descripcion:.+}")
