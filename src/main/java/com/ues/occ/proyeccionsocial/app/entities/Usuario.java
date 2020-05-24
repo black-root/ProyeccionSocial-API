@@ -1,6 +1,7 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,7 +21,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usuario_id")
 	private Integer usuarioID;
 
@@ -35,7 +37,8 @@ public class Usuario implements Serializable {
 	@Column(length = 45, nullable = false)
 	private String clave;
 
-	@ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	//@ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false)
 	private RolUsuario rolUsuario;
 
 	protected Usuario() {
@@ -92,7 +95,7 @@ public class Usuario implements Serializable {
 	@Override
 	public String toString() {
 		return "Usuario [usuarioID=" + usuarioID + ", nombre=" + nombre + ", Apellido=" + Apellido + ", email=" + email
-				+ ", clave=" + clave + ", rolUsuario=" + rolUsuario + "]";
+				+ ", clave=" + clave + ", rolUsuario=" + rolUsuario+ "]";
 	}
 
 	public Usuario(Integer usuarioID, String nombre, String apellido, String email, String clave,

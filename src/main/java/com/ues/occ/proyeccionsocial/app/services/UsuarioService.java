@@ -39,15 +39,18 @@ public class UsuarioService {
 	}
 
 	public Usuario updateUsuario(Usuario entity, Integer id) {
-		if (usuarioDao.findById(id) != null) {
-			Optional<Usuario> u = usuarioDao.findById(id);
-			u.get().setNombre(entity.getNombre().toUpperCase());
-			u.get().setApellido(entity.getApellido().toUpperCase());
-			u.get().setEmail(entity.getEmail());
-			u.get().setClave(entity.getClave());
-			u.get().getRolUsuario().setRolID(entity.getRolUsuario().getRolID());
-			u.get().getRolUsuario().setDescripcion(rolUsuarioDao.findById(id).get().getDescripcion());
-			return usuarioDao.save(u.get());
+		Optional<Usuario> u = usuarioDao.findById(id);
+		String descrRolUsuario = rolUsuarioDao.findById(entity.getRolUsuario().getRolID())
+				.get().getDescripcion();
+		
+		if (u != null && entity.getRolUsuario().getRolID() !=null) {
+			entity.setUsuarioID(id);
+			entity.setApellido(entity.getApellido().toUpperCase());
+			entity.setNombre(entity.getNombre().toUpperCase());
+			entity.getRolUsuario().setRolID(entity.getRolUsuario().getRolID());
+			entity.getRolUsuario().setDescripcion(descrRolUsuario);
+			
+			return usuarioDao.save(entity);
 		} else {
 			return null;
 		}
