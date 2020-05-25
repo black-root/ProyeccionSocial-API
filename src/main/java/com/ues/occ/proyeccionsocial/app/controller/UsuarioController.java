@@ -41,7 +41,6 @@ public class UsuarioController {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") Integer id) {
 		if (usuarioService.deleteUsuario(id) == true) {
-			//usuarioService.deleteUsuario(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
