@@ -6,15 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ues.occ.proyeccionsocial.app.dao.RolUsuarioDao;
 import com.ues.occ.proyeccionsocial.app.entities.RolUsuario;
+import com.ues.occ.proyeccionsocial.app.repository.RolUsuarioRepository;
 
 @Service
 public class RolUsuarioService {
 	
 	
 	@Autowired
-	private RolUsuarioDao rolUsuarioDao;
+	private RolUsuarioRepository rolUsuarioDao;
 
 	public Iterable<RolUsuario> findAllRolUsuario() {
 		return rolUsuarioDao.findAll();

@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import com.ues.occ.proyeccionsocial.app.dao.RolUsuarioDao;
+
 import com.ues.occ.proyeccionsocial.app.entities.RolUsuario;
+import com.ues.occ.proyeccionsocial.app.repository.RolUsuarioRepository;
 import com.ues.occ.proyeccionsocial.app.services.RolUsuarioService;
 
 @ExtendWith(SpringExtension.class)
@@ -23,7 +24,7 @@ public class RolUsuarioControllerMockTests {
 	private RolUsuarioService rolUsuarioService;
 	
 	@MockBean
-	private RolUsuarioDao rolUsuarioRepository;
+	private RolUsuarioRepository rolUsuarioRepository;
 	
 	@Test
     public void testGetRolUsuarioByIdWithMockRepository() throws Exception {

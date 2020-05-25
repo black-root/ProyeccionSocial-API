@@ -39,15 +39,21 @@ public class UsuarioController {
 	}
 
 	@DeleteMapping(value = "/delete/{id}")
-	public void deleteUsuario(@PathVariable("id") Integer id) {
-		usuarioService.deleteUsuario(id);
+	public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") Integer id) {
+		if (usuarioService.deleteUsuario(id) == true) {
+			//usuarioService.deleteUsuario(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 	}
 
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario entity, @PathVariable("id") Integer usuarioID) {
 		if (usuarioID > 0 && usuarioID != null && !entity.getNombre().isEmpty() && !entity.getApellido().isEmpty()
 				&& !entity.getClave().isEmpty() && !entity.getEmail().isEmpty()
-				&& !entity.getRolUsuario().getDescripcion().isEmpty() ) {
+				&& !entity.getRolUsuario().getDescripcion().isEmpty()) {
 
 			return new ResponseEntity<>(usuarioService.updateUsuario(entity, usuarioID), HttpStatus.OK);
 

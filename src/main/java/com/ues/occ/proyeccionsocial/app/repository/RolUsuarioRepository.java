@@ -1,4 +1,4 @@
-package com.ues.occ.proyeccionsocial.app.dao;
+package com.ues.occ.proyeccionsocial.app.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ues.occ.proyeccionsocial.app.entities.RolUsuario;
 
 @Repository
-public interface RolUsuarioDao extends CrudRepository<RolUsuario, Integer> {
+public interface RolUsuarioRepository extends CrudRepository<RolUsuario, Integer> {
 
 	public List<RolUsuario> findByDescripcion(String descripcion);
 	

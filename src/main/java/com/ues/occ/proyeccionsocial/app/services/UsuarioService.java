@@ -6,18 +6,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ues.occ.proyeccionsocial.app.dao.RolUsuarioDao;
-import com.ues.occ.proyeccionsocial.app.dao.UsuarioDao;
 import com.ues.occ.proyeccionsocial.app.entities.Usuario;
+import com.ues.occ.proyeccionsocial.app.repository.RolUsuarioRepository;
+import com.ues.occ.proyeccionsocial.app.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 
 	@Autowired
-	private UsuarioDao usuarioDao;
-	
+	private UsuarioRepository usuarioDao;
+
 	@Autowired
-	private RolUsuarioDao rolUsuarioDao;
+	private RolUsuarioRepository rolUsuarioDao;
 
 	public Iterable<Usuario> findAllUsuarios() {
 		return usuarioDao.findAll();
@@ -40,25 +40,31 @@ public class UsuarioService {
 
 	public Usuario updateUsuario(Usuario entity, Integer id) {
 		Optional<Usuario> u = usuarioDao.findById(id);
-		String descrRolUsuario = rolUsuarioDao.findById(entity.getRolUsuario().getRolID())
-				.get().getDescripcion();
-		
-		if (u != null && entity.getRolUsuario().getRolID() !=null) {
+		String descrRolUsuario = rolUsuarioDao.findById(entity.getRolUsuario().getRolID()).get().getDescripcion();
+
+		if (u != null && entity.getRolUsuario().getRolID() != null) {
 			entity.setUsuarioID(id);
 			entity.setApellido(entity.getApellido().toUpperCase());
 			entity.setNombre(entity.getNombre().toUpperCase());
 			entity.getRolUsuario().setRolID(entity.getRolUsuario().getRolID());
 			entity.getRolUsuario().setDescripcion(descrRolUsuario);
-			
+
 			return usuarioDao.save(entity);
 		} else {
 			return null;
 		}
-		
+
 	}
 
-	public void deleteUsuario(Integer id) {
-		usuarioDao.deleteById(id);
+	public boolean deleteUsuario(Integer id) {
+
+		Optional<Usuario> usuario = usuarioDao.findById(id);
+		if (usuario.isPresent()) {
+			usuarioDao.deleteUsuario(id);
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 }
