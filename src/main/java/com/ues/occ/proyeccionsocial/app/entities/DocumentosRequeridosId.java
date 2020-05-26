@@ -2,29 +2,52 @@ package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+
+@Embeddable
 public class DocumentosRequeridosId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Evento evento;
+	@Column(name = "documento_documento_id")
+	private Integer documnentId;
 
-	private Documento documento;
+	@Column(name = "evento_evento_id")
+	private Integer eventoId;
 
-	public DocumentosRequeridosId(Evento evento, Documento documento) {
+	public DocumentosRequeridosId(Integer documnentId, Integer eventoId) {
 		super();
-		this.evento = evento;
-		this.documento = documento;
+		this.documnentId = documnentId;
+		this.eventoId = eventoId;
 	}
 
 	public DocumentosRequeridosId() {
+	}
+
+	public Integer getDocumnentId() {
+		return documnentId;
+	}
+
+	public void setDocumnentId(Integer documnentId) {
+		this.documnentId = documnentId;
+	}
+
+	public Integer getEventoId() {
+		return eventoId;
+	}
+
+	public void setEventoId(Integer eventoId) {
+		this.eventoId = eventoId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((documento == null) ? 0 : documento.hashCode());
-		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
+		result = prime * result + ((documnentId == null) ? 0 : documnentId.hashCode());
+		result = prime * result + ((eventoId == null) ? 0 : eventoId.hashCode());
 		return result;
 	}
 
@@ -37,15 +60,15 @@ public class DocumentosRequeridosId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		DocumentosRequeridosId other = (DocumentosRequeridosId) obj;
-		if (documento == null) {
-			if (other.documento != null)
+		if (documnentId == null) {
+			if (other.documnentId != null)
 				return false;
-		} else if (!documento.equals(other.documento))
+		} else if (!documnentId.equals(other.documnentId))
 			return false;
-		if (evento == null) {
-			if (other.evento != null)
+		if (eventoId == null) {
+			if (other.eventoId != null)
 				return false;
-		} else if (!evento.equals(other.evento))
+		} else if (!eventoId.equals(other.eventoId))
 			return false;
 		return true;
 	}

@@ -2,7 +2,7 @@ package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer eventoId;
 
 	@Column(nullable = false, length = 100, name = "descripcion")
@@ -26,7 +26,8 @@ public class Evento implements Serializable {
 	private Date fechaDeFin;
 
 	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<DocumentosRequeridos> documentosRequeridos;
+
+	private Set<DocumentosRequeridos> documentosRequeridos;
 
 	public Integer getEventoId() {
 		return eventoId;

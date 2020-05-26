@@ -1,7 +1,7 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "documento_id")
 	private Integer documentoId;
 
@@ -28,8 +28,8 @@ public class Documento implements Serializable {
 	private String descripcion;
 
 	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<DocumentosRequeridos> documentosRequeridos;
-	
+	private Set<DocumentosRequeridos> documentosRequeridos;
+
 	public Documento() {
 	}
 
@@ -100,5 +100,5 @@ public class Documento implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
