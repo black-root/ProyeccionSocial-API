@@ -37,6 +37,13 @@ public class DocumentosRequeridosService {
 	}
 
 	public DocumentosRequeridos createDoccumentosRequeridos(DocumentosRequeridos entity) {
-		return docRequeridosRepository.save(entity);
+		if(!docRequeridosRepository.findById(new DocumentosRequeridosId(
+				entity.getDocReqId().getEventoId(), 
+				entity.getDocReqId().getDocumnentId())).isPresent()) {
+			return docRequeridosRepository.save(entity);
+		} else {
+			return null;
+		}
+		
 	}
 }
