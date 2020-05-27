@@ -15,12 +15,12 @@ public class DocumentosRequeridos implements Serializable {
 	private DocumentosRequeridosId docReqId;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "evento_evento_id", insertable = false ,  updatable= false)
+	@JoinColumn(name = "evento_evento_id", insertable = false, updatable = false)
 	private Evento evento;
 
-	//I'm not sure if this is the best way about using insertable and updatable
+	// I'm not sure if this is the best way about using insertable and updatable
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "documento_documento_id", insertable = false ,  updatable= false)
+	@JoinColumn(name = "documento_documento_id", insertable = false, updatable = false)
 	private Documento documento;
 
 	public DocumentosRequeridosId getDocReqId() {

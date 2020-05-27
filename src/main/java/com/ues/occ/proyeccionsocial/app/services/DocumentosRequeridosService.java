@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ues.occ.proyeccionsocial.app.entities.Documento;
 import com.ues.occ.proyeccionsocial.app.entities.DocumentosRequeridos;
@@ -30,20 +31,42 @@ public class DocumentosRequeridosService {
 	}
 
 	public Optional<DocumentosRequeridos> findById(Integer eventoId, Integer documentoId) {
-		
+
 		Evento evento = eventoRep.findById(eventoId).get();
 		Documento documento = docRepo.findById(documentoId).get();
-		return docRequeridosRepository.findById(new DocumentosRequeridosId(evento.getEventoId(),documento.getDocumentoId()));
+		return docRequeridosRepository
+				.findById(new DocumentosRequeridosId(evento.getEventoId(), documento.getDocumentoId()));
 	}
 
 	public DocumentosRequeridos createDoccumentosRequeridos(DocumentosRequeridos entity) {
-		if(!docRequeridosRepository.findById(new DocumentosRequeridosId(
-				entity.getDocReqId().getEventoId(), 
-				entity.getDocReqId().getDocumnentId())).isPresent()) {
+		if (!docRequeridosRepository.findById(
+				new DocumentosRequeridosId(entity.getDocReqId().getEventoId(), entity.getDocReqId().getDocumnentId()))
+				.isPresent()) {
 			return docRequeridosRepository.save(entity);
 		} else {
 			return null;
 		}
-		
+
 	}
+	
+	public void deleteById(Integer eventoId, Integer documentoId) {
+		/*
+		DocumentosRequeridosId dcId = new DocumentosRequeridosId(eventoId, documentoId);
+		Optional<DocumentosRequeridos> dc = docRequeridosRepository.findById(dcId);
+		
+		if (dc.isPresent()) {
+			docRequeridosRepository.deleteById(new DocumentosRequeridosId(eventoId, documentoId));
+			return true;
+		} else {
+			return false;
+		}*/
+		docRequeridosRepository.deleteDocumentosRequeridos(new DocumentosRequeridosId(eventoId, documentoId));
+	}
+
+	public DocumentosRequeridos updateDocumentosRequeridos(DocumentosRequeridos entity, Integer eventoId, Integer documentoId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 }

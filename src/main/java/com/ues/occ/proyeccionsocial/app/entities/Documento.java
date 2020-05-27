@@ -1,6 +1,7 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "documento")
@@ -28,8 +31,9 @@ public class Documento implements Serializable {
 	private String descripcion;
 
 	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<DocumentosRequeridos> documentosRequeridos;
+	private List<DocumentosRequeridos> documentosRequeridos;
 
+	
 	public Documento() {
 	}
 

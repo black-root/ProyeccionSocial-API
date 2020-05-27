@@ -45,7 +45,6 @@ public class UsuarioController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	@PutMapping(value = "/update/{id}")
