@@ -1,8 +1,8 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.transaction.annotation.Transactional;
-
 @Entity
 @Table(name = "documento")
 public class Documento implements Serializable {
@@ -23,17 +21,16 @@ public class Documento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "documento_id")
 	private Integer documentoId;
 
 	@Column(name = "descripcion", nullable = false, length = 150)
 	private String descripcion;
 
-	@OneToMany(mappedBy = "documento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<DocumentosRequeridos> documentosRequeridos;
+	@OneToMany(targetEntity = DocumentosRequeridos.class, mappedBy = "documento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<DocumentosRequeridos> documentosRequeridos = new ArrayList<>();;
 
-	
 	public Documento() {
 	}
 
@@ -57,9 +54,8 @@ public class Documento implements Serializable {
 		return serialVersionUID;
 	}
 
-	public Documento(Integer documentoId, String descripcion) {
+	public Documento(String descripcion) {
 		super();
-		this.documentoId = documentoId;
 		this.descripcion = descripcion;
 	}
 

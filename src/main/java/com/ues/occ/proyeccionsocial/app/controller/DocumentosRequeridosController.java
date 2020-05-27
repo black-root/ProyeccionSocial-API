@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ues.occ.proyeccionsocial.app.entities.DocumentosRequeridos;
-import com.ues.occ.proyeccionsocial.app.entities.Usuario;
 import com.ues.occ.proyeccionsocial.app.services.DocumentosRequeridosService;
 
 @RestController
-@RequestMapping(value = "/api/proyeccion-social/doc-requeridos")
+@RequestMapping(value = "/api/proyeccion-social/documentos-requeridos")
 public class DocumentosRequeridosController {
 
 	@Autowired
@@ -30,32 +29,28 @@ public class DocumentosRequeridosController {
 		return docReqService.findAll();
 	}
 
-	@GetMapping(value = "/{eventoId}&{docId}")
-	public Optional<DocumentosRequeridos> getDocumentosRequeridosById(@PathVariable("eventoId") Integer eventoId,
-			@PathVariable("docId") Integer docId) {
-		return docReqService.findById(eventoId, docId);
+	@GetMapping(value = "/{id}")
+	public Optional<DocumentosRequeridos> getDocumentosRequeridosById(
+			@PathVariable("id") Integer id) {
+		return docReqService.findById(id);
 	}
 
 	@PostMapping(value = "/create")
 	public ResponseEntity<DocumentosRequeridos> createDocumentosRequeridos(@RequestBody DocumentosRequeridos entity) {
 		
-		if (docReqService.createDoccumentosRequeridos(entity) != null) {
-			return new ResponseEntity<DocumentosRequeridos>(entity, HttpStatus.CREATED);
-		} else {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+			return new ResponseEntity<DocumentosRequeridos>(docReqService.createDoccumentosRequeridos(entity), HttpStatus.CREATED);
+		
 	}
 
-	@DeleteMapping(value = "/delete/{eventoId}&{documentoId}")
+	@DeleteMapping(value = "/delete/{id}")
 	public void deleteDocumentosRequeridos(
-			@PathVariable("eventoId") Integer eventoId, 
-			@PathVariable("documentoId") Integer documentoId) {
+			@PathVariable("id") Integer id) {
 		/*if(docReqService.deleteById(eventoId, documentoId) == true ) {
 			return new ResponseEntity<DocumentosRequeridos>(HttpStatus.NO_CONTENT);	
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}	*/
-		docReqService.deleteById(eventoId, documentoId);
+		docReqService.deleteById(id);
 		//.return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	

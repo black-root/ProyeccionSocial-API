@@ -4,38 +4,27 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-//@IdClass(DocumentosRequeridosId.class)
 @Entity
 @Table(name = "documentos_requeridos")
 public class DocumentosRequeridos implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private DocumentosRequeridosId docReqId;
-
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "evento_evento_id", insertable = false, updatable = false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "documentos_requeridos_id")
+	private Integer documentosRequeridosId;
+	
+	@ManyToOne()
+	@JoinColumn(name="evento_evento_id", referencedColumnName = "evento_id") 
 	private Evento evento;
 
-	// I'm not sure if this is the best way about using insertable and updatable
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "documento_documento_id", insertable = false, updatable = false)
+	@ManyToOne()
+	@JoinColumn(name="documento_documento_id", referencedColumnName = "documento_id") 
 	private Documento documento;
-
-	public DocumentosRequeridosId getDocReqId() {
-		return docReqId;
-	}
-
-	public void setDocReqId(DocumentosRequeridosId docReqId) {
-		this.docReqId = docReqId;
-	}
 
 	@Column(nullable = true, name = "original")
 	private boolean original;
-
-	@Column(nullable = true, name = "copia")
-	private boolean copia;
 
 	@Column(nullable = true, name = "cantidadCopias", length = 3)
 	private Integer cantidadDeCopias;
@@ -43,15 +32,6 @@ public class DocumentosRequeridos implements Serializable {
 	public DocumentosRequeridos() {
 	}
 
-	/*
-	 * public Evento getEvento() { return evento; }
-	 * 
-	 * public void setEvento(Evento evento) { this.evento = evento; }
-	 * 
-	 * public Documento getDocumento() { return documento; }
-	 * 
-	 * public void setDocumento(Documento documento) { this.documento = documento; }
-	 */
 	public boolean isOriginal() {
 		return original;
 	}
@@ -60,16 +40,32 @@ public class DocumentosRequeridos implements Serializable {
 		this.original = original;
 	}
 
-	public boolean isCopia() {
-		return copia;
-	}
-
-	public void setCopia(boolean copia) {
-		this.copia = copia;
-	}
-
 	public Integer getCantidadDeCopias() {
 		return cantidadDeCopias;
+	}
+
+	public Integer getDocumentosRequeridosId() {
+		return documentosRequeridosId;
+	}
+
+	public void setDocumentosRequeridosId(Integer documentosRequeridosId) {
+		this.documentosRequeridosId = documentosRequeridosId;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	public Documento getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(Documento documento) {
+		this.documento = documento;
 	}
 
 	public void setCantidadDeCopias(Integer cantidadDeCopias) {
@@ -77,55 +73,19 @@ public class DocumentosRequeridos implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cantidadDeCopias == null) ? 0 : cantidadDeCopias.hashCode());
-		result = prime * result + (copia ? 1231 : 1237);
-		result = prime * result + ((docReqId == null) ? 0 : docReqId.hashCode());
-		result = prime * result + (original ? 1231 : 1237);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DocumentosRequeridos other = (DocumentosRequeridos) obj;
-		if (cantidadDeCopias == null) {
-			if (other.cantidadDeCopias != null)
-				return false;
-		} else if (!cantidadDeCopias.equals(other.cantidadDeCopias))
-			return false;
-		if (copia != other.copia)
-			return false;
-		if (docReqId == null) {
-			if (other.docReqId != null)
-				return false;
-		} else if (!docReqId.equals(other.docReqId))
-			return false;
-		if (original != other.original)
-			return false;
-		return true;
-	}
-
-	@Override
 	public String toString() {
-		return "DocumentosRequeridos [docReqId=" + docReqId + ", original=" + original + ", copia=" + copia
-				+ ", cantidadDeCopias=" + cantidadDeCopias + "]";
+		return "DocumentosRequeridos [documentosRequeridosId=" + documentosRequeridosId + ", evento=" + evento
+				+ ", documento=" + documento + ", original=" + original + ", cantidadDeCopias=" + cantidadDeCopias
+				+ "]";
 	}
 
-	public DocumentosRequeridos(DocumentosRequeridosId docReqId, boolean original, boolean copia,
-			Integer cantidadDeCopias) {
+	public DocumentosRequeridos(Evento evento, Documento documento, boolean original, Integer cantidadDeCopias) {
 		super();
-		this.docReqId = docReqId;
+		this.evento = evento;
+		this.documento = documento;
 		this.original = original;
-		this.copia = copia;
 		this.cantidadDeCopias = cantidadDeCopias;
 	}
+
 
 }

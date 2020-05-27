@@ -1,9 +1,9 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -14,7 +14,8 @@ public class Evento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "evento_id")
 	private Integer eventoId;
 
 	@Column(nullable = false, length = 100, name = "descripcion")
@@ -26,8 +27,8 @@ public class Evento implements Serializable {
 	@Column(nullable = true, name = "fecha_fin")
 	private Date fechaDeFin;
 
-	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<DocumentosRequeridos> documentosRequeridos;
+	@OneToMany(targetEntity = DocumentosRequeridos.class, mappedBy = "evento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<DocumentosRequeridos> documentosRequeridos = new ArrayList<>();
 
 	public Integer getEventoId() {
 		return eventoId;
@@ -64,9 +65,8 @@ public class Evento implements Serializable {
 	public Evento() {
 	}
 
-	public Evento(Integer eventoId, String descripcion, Date fechaDeInicio, Date fechaDeFin) {
+	public Evento(String descripcion, Date fechaDeInicio, Date fechaDeFin) {
 		super();
-		this.eventoId = eventoId;
 		this.descripcion = descripcion;
 		this.fechaDeInicio = fechaDeInicio;
 		this.fechaDeFin = fechaDeFin;

@@ -7,14 +7,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ues.occ.proyeccionsocial.app.entities.DocumentosRequeridos;
-import com.ues.occ.proyeccionsocial.app.entities.DocumentosRequeridosId;
 
 @Repository
 public interface DocumentosRequeridosRepository 
-	extends CrudRepository<DocumentosRequeridos, DocumentosRequeridosId> {
+	extends CrudRepository<DocumentosRequeridos, Integer> {
 
 	@Transactional
 	@Modifying
-	@Query("delete from DocumentosRequeridos u WHERE u.docReqId = ?1" )
-	public void deleteDocumentosRequeridos(DocumentosRequeridosId docReqId);
+	@Query("delete from DocumentosRequeridos u WHERE u.documentosRequeridosId = ?1" )
+	public void deleteDocumentosRequeridos(Integer id);
 }
