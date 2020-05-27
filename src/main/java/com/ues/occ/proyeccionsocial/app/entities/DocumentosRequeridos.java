@@ -11,7 +11,7 @@ public class DocumentosRequeridos implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "documentos_requeridos_id")
 	private Integer documentosRequeridosId;
 	
@@ -26,7 +26,7 @@ public class DocumentosRequeridos implements Serializable {
 	@Column(nullable = true, name = "original")
 	private boolean original;
 
-	@Column(nullable = true, name = "cantidadCopias", length = 3)
+	@Column(nullable = true, name = "cantidad_copias", length = 3)
 	private Integer cantidadDeCopias;
 
 	public DocumentosRequeridos() {

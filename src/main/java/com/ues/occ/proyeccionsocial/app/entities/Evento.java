@@ -21,6 +21,7 @@ public class Evento implements Serializable {
 	@Column(nullable = false, length = 100, name = "descripcion")
 	private String descripcion;
 
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
 	@Column(nullable = false, name = "fecha_inicio")
 	private Date fechaDeInicio;
 
