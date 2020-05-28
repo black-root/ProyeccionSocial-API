@@ -14,13 +14,13 @@ public class DocumentosRequeridos implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "documentos_requeridos_id")
 	private Integer documentosRequeridosId;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="evento_evento_id", referencedColumnName = "evento_id") 
+	@JoinColumn(name = "evento_evento_id", referencedColumnName = "evento_id")
 	private Evento evento;
 
 	@ManyToOne()
-	@JoinColumn(name="documento_documento_id", referencedColumnName = "documento_id") 
+	@JoinColumn(name = "documento_documento_id", referencedColumnName = "documento_id")
 	private Documento documento;
 
 	@Column(nullable = true, name = "original")
@@ -52,6 +52,10 @@ public class DocumentosRequeridos implements Serializable {
 		this.documentosRequeridosId = documentosRequeridosId;
 	}
 
+	public void setCantidadDeCopias(Integer cantidadDeCopias) {
+		this.cantidadDeCopias = cantidadDeCopias;
+	}
+
 	public Evento getEvento() {
 		return evento;
 	}
@@ -68,10 +72,6 @@ public class DocumentosRequeridos implements Serializable {
 		this.documento = documento;
 	}
 
-	public void setCantidadDeCopias(Integer cantidadDeCopias) {
-		this.cantidadDeCopias = cantidadDeCopias;
-	}
-
 	@Override
 	public String toString() {
 		return "DocumentosRequeridos [documentosRequeridosId=" + documentosRequeridosId + ", evento=" + evento
@@ -86,6 +86,4 @@ public class DocumentosRequeridos implements Serializable {
 		this.original = original;
 		this.cantidadDeCopias = cantidadDeCopias;
 	}
-
-
 }

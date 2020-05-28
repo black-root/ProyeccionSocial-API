@@ -40,13 +40,11 @@ public class DocumentosRequeridosService {
 		 * false; }
 		 */
 		docRequeridosRepository.deleteById(id);
-		;
 	}
 
-	public DocumentosRequeridos updateDocumentosRequeridos(DocumentosRequeridos entity, Integer eventoId,
-			Integer documentoId) {
-		// TODO Auto-generated method stub
-		return null;
+	public DocumentosRequeridos updateDocumentosRequeridos(DocumentosRequeridos entity, Integer id) {
+		
+		return docRequeridosRepository.save(entity);
 	}
 
 }
