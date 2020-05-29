@@ -3,8 +3,12 @@ package com.ues.occ.proyeccionsocial.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,10 +30,34 @@ public class EstadoDocumentoPorEstudianteController {
 				service.findById(documentosRequeridosId, progresoEstudianteId), HttpStatus.ACCEPTED);
 	}
 
-	
 	@GetMapping(value = "/all")
 	public Iterable<EstadoDocumentoPorEstudiante> findAll() {
 		return service.findAll();
+	}
+
+	@PostMapping(value = "/create")
+	public ResponseEntity<EstadoDocumentoPorEstudiante> create(
+			@RequestBody EstadoDocumentoPorEstudiante entity) {
+		return new ResponseEntity<EstadoDocumentoPorEstudiante>(
+				service.create(entity), HttpStatus.CREATED);
+	}
+	
+	@PutMapping(value = "/update/{documentosRequeridosId}&{progresoEstudianteId:.+}")
+	public ResponseEntity<EstadoDocumentoPorEstudiante> update(
+			@RequestBody EstadoDocumentoPorEstudiante entity,
+			@PathVariable("documentosRequeridosId") Integer documentosRequeridosId,
+			@PathVariable("progresoEstudianteId") String progresoEstudianteId) {
+		return new ResponseEntity<EstadoDocumentoPorEstudiante>(
+				service.update(entity, documentosRequeridosId, progresoEstudianteId),
+				HttpStatus.CREATED);
+	}
+	
+	@DeleteMapping(value = "/delete/{documentosRequeridosId}&{progresoEstudianteId:.+}")
+	public ResponseEntity<EstadoDocumentoPorEstudiante> delete(
+			@PathVariable("documentosRequeridosId") Integer documentosRequeridosId,
+			@PathVariable("progresoEstudianteId") String progresoEstudianteId){
+		service.delete(documentosRequeridosId, progresoEstudianteId);
+		return new ResponseEntity<EstadoDocumentoPorEstudiante>(HttpStatus.NO_CONTENT);
 	}
 
 }

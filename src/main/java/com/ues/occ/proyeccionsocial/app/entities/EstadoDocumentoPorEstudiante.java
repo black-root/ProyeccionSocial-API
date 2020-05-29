@@ -9,11 +9,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "estado_documento_por_estudiante")
-@IdClass(EstadoDocumentoPorEstudianteId.class)
 public class EstadoDocumentoPorEstudiante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@EmbeddedId
+	private EstadoDocumentoPorEstudianteId pk;
+	
 	@Column(name = "entregado", nullable = false)
 	private boolean entregado;
 
@@ -26,20 +28,27 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 	@Column(name = "fecha_de_aprobacion", nullable = true)
 	private Date fechaDeAprobacion;
 
-	@Id
 	@ManyToOne(targetEntity = DocumentosRequeridos.class, optional = false)
 	@JoinColumn(name = "documentos_requeridos_documentos_requeridos_id", 
 	referencedColumnName = "documentos_requeridos_id",  insertable = false, updatable = false)
 	private DocumentosRequeridos documentosRequeridos;
 
-	@Id
+	
 	@ManyToOne(targetEntity =  ProgresoEstudiante.class, optional = false)
 	@JoinColumn(name = "progreso_estudiante_carnet", 
 	referencedColumnName = "carnet",  insertable = false, updatable = false)
 	private ProgresoEstudiante progresoEstudiante;
-
+	
 	public EstadoDocumentoPorEstudiante() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public EstadoDocumentoPorEstudianteId getPk() {
+		return pk;
+	}
+
+	public void setPk(EstadoDocumentoPorEstudianteId pk) {
+		this.pk = pk;
 	}
 
 	public boolean isEntregado() {
@@ -74,20 +83,20 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 		this.fechaDeAprobacion = fechaDeAprobacion;
 	}
 
-	public DocumentosRequeridos getDocumentosRequeridos() {
-		return documentosRequeridos;
+	public EstadoDocumentoPorEstudiante(EstadoDocumentoPorEstudianteId pk, boolean entregado, boolean aprobado,
+			Date fechaDeEntrega, Date fechaDeAprobacion) {
+		super();
+		this.pk = pk;
+		this.entregado = entregado;
+		this.aprobado = aprobado;
+		this.fechaDeEntrega = fechaDeEntrega;
+		this.fechaDeAprobacion = fechaDeAprobacion;
 	}
 
-	public void setDocumentosRequeridos(DocumentosRequeridos documentosRequeridos) {
-		this.documentosRequeridos = documentosRequeridos;
-	}
-
-	public ProgresoEstudiante getProgresoEstudiante() {
-		return progresoEstudiante;
-	}
-
-	public void setProgresoEstudiante(ProgresoEstudiante progresoEstudiante) {
-		this.progresoEstudiante = progresoEstudiante;
+	@Override
+	public String toString() {
+		return "EstadoDocumentoPorEstudiante [pk=" + pk + ", entregado=" + entregado + ", aprobado=" + aprobado
+				+ ", fechaDeEntrega=" + fechaDeEntrega + ", fechaDeAprobacion=" + fechaDeAprobacion + "]";
 	}
 
 	@Override
@@ -95,11 +104,10 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (aprobado ? 1231 : 1237);
-		result = prime * result + ((documentosRequeridos == null) ? 0 : documentosRequeridos.hashCode());
 		result = prime * result + (entregado ? 1231 : 1237);
 		result = prime * result + ((fechaDeAprobacion == null) ? 0 : fechaDeAprobacion.hashCode());
 		result = prime * result + ((fechaDeEntrega == null) ? 0 : fechaDeEntrega.hashCode());
-		result = prime * result + ((progresoEstudiante == null) ? 0 : progresoEstudiante.hashCode());
+		result = prime * result + ((pk == null) ? 0 : pk.hashCode());
 		return result;
 	}
 
@@ -114,11 +122,6 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 		EstadoDocumentoPorEstudiante other = (EstadoDocumentoPorEstudiante) obj;
 		if (aprobado != other.aprobado)
 			return false;
-		if (documentosRequeridos == null) {
-			if (other.documentosRequeridos != null)
-				return false;
-		} else if (!documentosRequeridos.equals(other.documentosRequeridos))
-			return false;
 		if (entregado != other.entregado)
 			return false;
 		if (fechaDeAprobacion == null) {
@@ -131,31 +134,12 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 				return false;
 		} else if (!fechaDeEntrega.equals(other.fechaDeEntrega))
 			return false;
-		if (progresoEstudiante == null) {
-			if (other.progresoEstudiante != null)
+		if (pk == null) {
+			if (other.pk != null)
 				return false;
-		} else if (!progresoEstudiante.equals(other.progresoEstudiante))
+		} else if (!pk.equals(other.pk))
 			return false;
 		return true;
-	}
-
-	public EstadoDocumentoPorEstudiante(boolean entregado, boolean aprobado, Date fechaDeEntrega,
-			Date fechaDeAprobacion, DocumentosRequeridos documentosRequeridos, ProgresoEstudiante progresoEstudiante) {
-		super();
-		this.entregado = entregado;
-		this.aprobado = aprobado;
-		this.fechaDeEntrega = fechaDeEntrega;
-		this.fechaDeAprobacion = fechaDeAprobacion;
-		this.documentosRequeridos = documentosRequeridos;
-		this.progresoEstudiante = progresoEstudiante;
-	}
-
-	@Override
-	public String toString() {
-		return "EstadoDocumentoPorEstudiante [entregado=" + entregado + ", aprobado=" + aprobado + ", fechaDeEntrega="
-				+ fechaDeEntrega + ", fechaDeAprobacion=" + fechaDeAprobacion + ", documentosRequeridos="
-				+ documentosRequeridos + ", progresoEstudiante=" + progresoEstudiante + "]";
-	}
-
+	}	
 
 }

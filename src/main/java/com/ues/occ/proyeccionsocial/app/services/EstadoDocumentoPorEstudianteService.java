@@ -26,6 +26,33 @@ public class EstadoDocumentoPorEstudianteService {
 		// TODO Auto-generated method stub
 		return estadoDocPorAlumRepository.findAll();
 	}
+
+
+	public EstadoDocumentoPorEstudiante create(EstadoDocumentoPorEstudiante entity) {
+		
+		return estadoDocPorAlumRepository.save(entity);
+	}
+
+
+	public void delete(Integer documentosRequeridosId, String progresoEstudianteId) {
+		estadoDocPorAlumRepository.deleteById(new EstadoDocumentoPorEstudianteId(
+				documentosRequeridosId, 
+				progresoEstudianteId));
+	}
+
+
+	public EstadoDocumentoPorEstudiante update(EstadoDocumentoPorEstudiante entity, Integer documentosRequeridosId,
+			String progresoEstudianteId) {
+		EstadoDocumentoPorEstudiante estadoDocumentoPorEstudiante =
+				estadoDocPorAlumRepository.findById(
+						new EstadoDocumentoPorEstudianteId(documentosRequeridosId, progresoEstudianteId)).get();
+		estadoDocumentoPorEstudiante.setAprobado(entity.isAprobado());
+		estadoDocumentoPorEstudiante.setEntregado(entity.isEntregado());
+		estadoDocumentoPorEstudiante.setFechaDeAprobacion(entity.getFechaDeAprobacion());
+		estadoDocumentoPorEstudiante.setFechaDeEntrega(entity.getFechaDeEntrega());
+		
+		return estadoDocPorAlumRepository.save(estadoDocumentoPorEstudiante);
+	}
 	
 	
 }

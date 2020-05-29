@@ -2,13 +2,20 @@ package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Embeddable
 public class EstadoDocumentoPorEstudianteId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	
+	@Column(name = "documentos_requeridos_documentos_requeridos_id")
 	private Integer documentosRequeridos;
 	
+	@Column(name = "progreso_estudiante_carnet")
 	private String progresoEstudiante;
 	
 	public EstadoDocumentoPorEstudianteId() {
