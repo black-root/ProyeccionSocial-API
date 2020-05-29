@@ -29,7 +29,7 @@ public class Documento implements Serializable {
 	private String descripcion;
 
 	@OneToMany(targetEntity = DocumentosRequeridos.class, mappedBy = "documento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<DocumentosRequeridos> documentosRequeridos = new ArrayList<>();;
+	private List<DocumentosRequeridos> documentosRequeridos = new ArrayList<>();
 
 	public Documento() {
 	}

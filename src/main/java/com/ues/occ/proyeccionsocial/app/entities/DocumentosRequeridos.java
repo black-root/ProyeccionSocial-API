@@ -1,6 +1,8 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -28,6 +30,9 @@ public class DocumentosRequeridos implements Serializable {
 
 	@Column(nullable = true, name = "cantidad_copias", length = 3)
 	private Integer cantidadDeCopias;
+	
+	@OneToMany(targetEntity = EstadoDocumentoPorEstudiante.class, mappedBy = "documentosRequeridos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<EstadoDocumentoPorEstudiante> estadoDocumentoPorEstudiante = new ArrayList<>();
 
 	public DocumentosRequeridos() {
 	}
@@ -86,4 +91,5 @@ public class DocumentosRequeridos implements Serializable {
 		this.original = original;
 		this.cantidadDeCopias = cantidadDeCopias;
 	}
+	
 }
