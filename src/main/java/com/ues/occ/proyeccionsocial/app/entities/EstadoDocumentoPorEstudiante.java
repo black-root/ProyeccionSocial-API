@@ -9,12 +9,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "estado_documento_por_estudiante")
+@IdClass(EstadoDocumentoPorEstudianteId.class)
 public class EstadoDocumentoPorEstudiante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@EmbeddedId
-	private EstadoDocumentoPorEstudianteId estadoDocumentoPorEstudianteId;
 
 	@Column(name = "entregado", nullable = false)
 	private boolean entregado;
@@ -28,39 +26,20 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 	@Column(name = "fecha_de_aprobacion", nullable = true)
 	private Date fechaDeAprobacion;
 
+	@Id
 	@ManyToOne(targetEntity = DocumentosRequeridos.class, optional = false)
 	@JoinColumn(name = "documentos_requeridos_documentos_requeridos_id", 
 	referencedColumnName = "documentos_requeridos_id",  insertable = false, updatable = false)
-	private List<DocumentosRequeridos> documentosRequeridos = new ArrayList<>();
+	private DocumentosRequeridos documentosRequeridos;
 
+	@Id
 	@ManyToOne(targetEntity =  ProgresoEstudiante.class, optional = false)
 	@JoinColumn(name = "progreso_estudiante_carnet", 
 	referencedColumnName = "carnet",  insertable = false, updatable = false)
-	private List<ProgresoEstudiante> progresoEstudiante = new ArrayList<>();
+	private ProgresoEstudiante progresoEstudiante;
 
 	public EstadoDocumentoPorEstudiante() {
 		// TODO Auto-generated constructor stub
-	}
-
-	public EstadoDocumentoPorEstudiante(EstadoDocumentoPorEstudianteId estadoDocumentoPorEstudianteId,
-			boolean entregado, boolean aprobado, Date fechaDeEntrega, Date fechaDeAprobacion,
-			List<DocumentosRequeridos> documentosRequeridos, List<ProgresoEstudiante> progresoEstudiante) {
-		super();
-		this.estadoDocumentoPorEstudianteId = estadoDocumentoPorEstudianteId;
-		this.entregado = entregado;
-		this.aprobado = aprobado;
-		this.fechaDeEntrega = fechaDeEntrega;
-		this.fechaDeAprobacion = fechaDeAprobacion;
-		this.documentosRequeridos = documentosRequeridos;
-		this.progresoEstudiante = progresoEstudiante;
-	}
-
-	public EstadoDocumentoPorEstudianteId getEstadoDocumentoPorEstudianteId() {
-		return estadoDocumentoPorEstudianteId;
-	}
-
-	public void setEstadoDocumentoPorEstudianteId(EstadoDocumentoPorEstudianteId estadoDocumentoPorEstudianteId) {
-		this.estadoDocumentoPorEstudianteId = estadoDocumentoPorEstudianteId;
 	}
 
 	public boolean isEntregado() {
@@ -95,28 +74,88 @@ public class EstadoDocumentoPorEstudiante implements Serializable {
 		this.fechaDeAprobacion = fechaDeAprobacion;
 	}
 
-	public List<DocumentosRequeridos> getDocumentosRequeridos() {
+	public DocumentosRequeridos getDocumentosRequeridos() {
 		return documentosRequeridos;
 	}
 
-	public void setDocumentosRequeridos(List<DocumentosRequeridos> documentosRequeridos) {
+	public void setDocumentosRequeridos(DocumentosRequeridos documentosRequeridos) {
 		this.documentosRequeridos = documentosRequeridos;
 	}
 
-	public List<ProgresoEstudiante> getProgresoEstudiante() {
+	public ProgresoEstudiante getProgresoEstudiante() {
 		return progresoEstudiante;
 	}
 
-	public void setProgresoEstudiante(List<ProgresoEstudiante> progresoEstudiante) {
+	public void setProgresoEstudiante(ProgresoEstudiante progresoEstudiante) {
+		this.progresoEstudiante = progresoEstudiante;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (aprobado ? 1231 : 1237);
+		result = prime * result + ((documentosRequeridos == null) ? 0 : documentosRequeridos.hashCode());
+		result = prime * result + (entregado ? 1231 : 1237);
+		result = prime * result + ((fechaDeAprobacion == null) ? 0 : fechaDeAprobacion.hashCode());
+		result = prime * result + ((fechaDeEntrega == null) ? 0 : fechaDeEntrega.hashCode());
+		result = prime * result + ((progresoEstudiante == null) ? 0 : progresoEstudiante.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EstadoDocumentoPorEstudiante other = (EstadoDocumentoPorEstudiante) obj;
+		if (aprobado != other.aprobado)
+			return false;
+		if (documentosRequeridos == null) {
+			if (other.documentosRequeridos != null)
+				return false;
+		} else if (!documentosRequeridos.equals(other.documentosRequeridos))
+			return false;
+		if (entregado != other.entregado)
+			return false;
+		if (fechaDeAprobacion == null) {
+			if (other.fechaDeAprobacion != null)
+				return false;
+		} else if (!fechaDeAprobacion.equals(other.fechaDeAprobacion))
+			return false;
+		if (fechaDeEntrega == null) {
+			if (other.fechaDeEntrega != null)
+				return false;
+		} else if (!fechaDeEntrega.equals(other.fechaDeEntrega))
+			return false;
+		if (progresoEstudiante == null) {
+			if (other.progresoEstudiante != null)
+				return false;
+		} else if (!progresoEstudiante.equals(other.progresoEstudiante))
+			return false;
+		return true;
+	}
+
+	public EstadoDocumentoPorEstudiante(boolean entregado, boolean aprobado, Date fechaDeEntrega,
+			Date fechaDeAprobacion, DocumentosRequeridos documentosRequeridos, ProgresoEstudiante progresoEstudiante) {
+		super();
+		this.entregado = entregado;
+		this.aprobado = aprobado;
+		this.fechaDeEntrega = fechaDeEntrega;
+		this.fechaDeAprobacion = fechaDeAprobacion;
+		this.documentosRequeridos = documentosRequeridos;
 		this.progresoEstudiante = progresoEstudiante;
 	}
 
 	@Override
 	public String toString() {
-		return "EstadoDocumentoPorEstudiante [estadoDocumentoPorEstudianteId=" + estadoDocumentoPorEstudianteId
-				+ ", entregado=" + entregado + ", aprobado=" + aprobado + ", fechaDeEntrega=" + fechaDeEntrega
-				+ ", fechaDeAprobacion=" + fechaDeAprobacion + ", documentosRequeridos=" + documentosRequeridos
-				+ ", progresoEstudiante=" + progresoEstudiante + "]";
-	}	
+		return "EstadoDocumentoPorEstudiante [entregado=" + entregado + ", aprobado=" + aprobado + ", fechaDeEntrega="
+				+ fechaDeEntrega + ", fechaDeAprobacion=" + fechaDeAprobacion + ", documentosRequeridos="
+				+ documentosRequeridos + ", progresoEstudiante=" + progresoEstudiante + "]";
+	}
+
 
 }

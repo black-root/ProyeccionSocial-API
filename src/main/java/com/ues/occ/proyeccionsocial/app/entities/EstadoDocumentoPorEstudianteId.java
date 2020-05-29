@@ -2,52 +2,47 @@ package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
-@Embeddable
 public class EstadoDocumentoPorEstudianteId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "documentos_requeridos_documentos_requeridos_id")
-	private Integer documentosRequeridosId;
 	
-	@Column(name = "progreso_estudiante_carnet")
-	private Integer progresoEstudianteId;
+	private Integer documentosRequeridos;
+	
+	private String progresoEstudiante;
 	
 	public EstadoDocumentoPorEstudianteId() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public EstadoDocumentoPorEstudianteId(Integer documentosRequeridosId, Integer progresoEstudianteId) {
+	public EstadoDocumentoPorEstudianteId(Integer documentosRequeridos, String progresoEstudiante) {
 		super();
-		this.documentosRequeridosId = documentosRequeridosId;
-		this.progresoEstudianteId = progresoEstudianteId;
+		this.documentosRequeridos = documentosRequeridos;
+		this.progresoEstudiante = progresoEstudiante;
 	}
 
-	public Integer getDocumentosRequeridosId() {
-		return documentosRequeridosId;
+	public Integer getDocumentosRequeridos() {
+		return documentosRequeridos;
 	}
 
-	public void setDocumentosRequeridosId(Integer documentosRequeridosId) {
-		this.documentosRequeridosId = documentosRequeridosId;
+	public void setDocumentosRequeridos(Integer documentosRequeridos) {
+		this.documentosRequeridos = documentosRequeridos;
 	}
 
-	public Integer getProgresoEstudianteId() {
-		return progresoEstudianteId;
+	public String getProgresoEstudiante() {
+		return progresoEstudiante;
 	}
 
-	public void setProgresoEstudianteId(Integer progresoEstudianteId) {
-		this.progresoEstudianteId = progresoEstudianteId;
+	public void setProgresoEstudiante(String progresoEstudiante) {
+		this.progresoEstudiante = progresoEstudiante;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((documentosRequeridosId == null) ? 0 : documentosRequeridosId.hashCode());
-		result = prime * result + ((progresoEstudianteId == null) ? 0 : progresoEstudianteId.hashCode());
+		result = prime * result + ((documentosRequeridos == null) ? 0 : documentosRequeridos.hashCode());
+		result = prime * result + ((progresoEstudiante == null) ? 0 : progresoEstudiante.hashCode());
 		return result;
 	}
 
@@ -60,18 +55,18 @@ public class EstadoDocumentoPorEstudianteId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		EstadoDocumentoPorEstudianteId other = (EstadoDocumentoPorEstudianteId) obj;
-		if (documentosRequeridosId == null) {
-			if (other.documentosRequeridosId != null)
+		if (documentosRequeridos == null) {
+			if (other.documentosRequeridos != null)
 				return false;
-		} else if (!documentosRequeridosId.equals(other.documentosRequeridosId))
+		} else if (!documentosRequeridos.equals(other.documentosRequeridos))
 			return false;
-		if (progresoEstudianteId == null) {
-			if (other.progresoEstudianteId != null)
+		if (progresoEstudiante == null) {
+			if (other.progresoEstudiante != null)
 				return false;
-		} else if (!progresoEstudianteId.equals(other.progresoEstudianteId))
+		} else if (!progresoEstudiante.equals(other.progresoEstudiante))
 			return false;
 		return true;
 	}
-	
+
 	
 }

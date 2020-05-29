@@ -91,5 +91,60 @@ public class DocumentosRequeridos implements Serializable {
 		this.original = original;
 		this.cantidadDeCopias = cantidadDeCopias;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cantidadDeCopias == null) ? 0 : cantidadDeCopias.hashCode());
+		result = prime * result + ((documento == null) ? 0 : documento.hashCode());
+		result = prime * result + ((documentosRequeridosId == null) ? 0 : documentosRequeridosId.hashCode());
+		result = prime * result
+				+ ((estadoDocumentoPorEstudiante == null) ? 0 : estadoDocumentoPorEstudiante.hashCode());
+		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
+		result = prime * result + (original ? 1231 : 1237);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DocumentosRequeridos other = (DocumentosRequeridos) obj;
+		if (cantidadDeCopias == null) {
+			if (other.cantidadDeCopias != null)
+				return false;
+		} else if (!cantidadDeCopias.equals(other.cantidadDeCopias))
+			return false;
+		if (documento == null) {
+			if (other.documento != null)
+				return false;
+		} else if (!documento.equals(other.documento))
+			return false;
+		if (documentosRequeridosId == null) {
+			if (other.documentosRequeridosId != null)
+				return false;
+		} else if (!documentosRequeridosId.equals(other.documentosRequeridosId))
+			return false;
+		if (estadoDocumentoPorEstudiante == null) {
+			if (other.estadoDocumentoPorEstudiante != null)
+				return false;
+		} else if (!estadoDocumentoPorEstudiante.equals(other.estadoDocumentoPorEstudiante))
+			return false;
+		if (evento == null) {
+			if (other.evento != null)
+				return false;
+		} else if (!evento.equals(other.evento))
+			return false;
+		if (original != other.original)
+			return false;
+		return true;
+	}
+	
+	
 	
 }
