@@ -23,5 +23,23 @@ public class DepartamentoService {
 		// TODO Auto-generated method stub
 		return departamentoRepository.findAll();
 	}
-	
+
+	public Departamento createDepartamento(Departamento departamento) {
+		// TODO Auto-generated method stub
+		return departamentoRepository.save(departamento);
+	}
+
+	public Departamento updateDepartamento(Departamento departamento, Integer id) {
+		// TODO Auto-generated method stub
+		Departamento entity = departamentoRepository.findById(id).get();
+		entity.setDescripcion(departamento.getDescripcion());
+
+		return departamentoRepository.save(entity);
+	}
+
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		departamentoRepository.deleteById(id);
+	}
+
 }

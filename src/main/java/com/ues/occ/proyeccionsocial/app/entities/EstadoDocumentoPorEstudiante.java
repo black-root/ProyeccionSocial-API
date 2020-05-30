@@ -1,9 +1,8 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 import javax.persistence.*;
 

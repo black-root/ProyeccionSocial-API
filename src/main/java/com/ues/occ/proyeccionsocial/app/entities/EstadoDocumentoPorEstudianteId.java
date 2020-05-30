@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 
 @Embeddable
 public class EstadoDocumentoPorEstudianteId implements Serializable {
