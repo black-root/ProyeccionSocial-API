@@ -1,12 +1,16 @@
 package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +26,11 @@ public class Departamento implements Serializable {
 	
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
+	
+	@OneToMany(targetEntity = CargoAdministrativoPorDepartamento.class, 
+			mappedBy = "departamento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<CargoAdministrativoPorDepartamento> cargoAdmnistrativoPorDepartamento;
+	
 	
 	public Departamento() {
 		

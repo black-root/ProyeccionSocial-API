@@ -5,33 +5,34 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ues.occ.proyeccionsocial.app.entities.CargoAdmnistrativo;
-import com.ues.occ.proyeccionsocial.app.repository.CargoAdmnistrativoRepository;
+import com.ues.occ.proyeccionsocial.app.entities.CargoAdministrativo;
+import com.ues.occ.proyeccionsocial.app.repository.CargoAdministrativoRepository;
+
 
 @Service
-public class CargoAdmnistrativoService {
+public class CargoAdministrativoService {
 
 	@Autowired
-	private CargoAdmnistrativoRepository cargoAdministrativoRepository;
+	private CargoAdministrativoRepository cargoAdministrativoRepository;
 
-	public Optional<CargoAdmnistrativo> findById(Integer id) {
+	public Optional<CargoAdministrativo> findById(Integer id) {
 		// TODO Auto-generated method stub
 		return cargoAdministrativoRepository.findById(id);
 	}
 
-	public Iterable<CargoAdmnistrativo> findAll() {
+	public Iterable<CargoAdministrativo> findAll() {
 		// TODO Auto-generated method stub
 		return cargoAdministrativoRepository.findAll();
 	}
 
-	public CargoAdmnistrativo create(CargoAdmnistrativo entity) {
+	public CargoAdministrativo create(CargoAdministrativo entity) {
 		// TODO Auto-generated method stub
 		return cargoAdministrativoRepository.save(entity);
 	}
 
-	public CargoAdmnistrativo update(CargoAdmnistrativo entity, Integer id) {
+	public CargoAdministrativo update(CargoAdministrativo entity, Integer id) {
 		// TODO Auto-generated method stub
-		CargoAdmnistrativo cargo = cargoAdministrativoRepository.findById(id).get(); 
+		CargoAdministrativo cargo = cargoAdministrativoRepository.findById(id).get(); 
 		cargo.setDescripcion(entity.getDescripcion());
 		return cargoAdministrativoRepository.save(cargo);
 	}

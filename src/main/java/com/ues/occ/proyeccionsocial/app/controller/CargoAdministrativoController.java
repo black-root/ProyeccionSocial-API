@@ -14,40 +14,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ues.occ.proyeccionsocial.app.entities.CargoAdmnistrativo;
-import com.ues.occ.proyeccionsocial.app.services.CargoAdmnistrativoService;
+import com.ues.occ.proyeccionsocial.app.entities.CargoAdministrativo;
+import com.ues.occ.proyeccionsocial.app.services.CargoAdministrativoService;
+
 
 @RestController
 @RequestMapping(value = "/api/proyeccion-social/cargo-administrativo")
 public class CargoAdministrativoController {
 
 	@Autowired
-	private CargoAdmnistrativoService service;
+	private CargoAdministrativoService service;
 	
 	@GetMapping(value = "/{id}")
-	public Optional<CargoAdmnistrativo> getCargoAdmnistrativoById(@PathVariable("id") Integer id) {
+	public Optional<CargoAdministrativo> getCargoAdmnistrativoById(@PathVariable("id") Integer id) {
 		return service.findById(id);
 	}
 	
 	@GetMapping(value = "/all")
-	public Iterable<CargoAdmnistrativo> getAllCargoAdmnistrativo() {
+	public Iterable<CargoAdministrativo> getAllCargoAdmnistrativo() {
 		return service.findAll();
 	}
 	
 	@PostMapping(value = "/create")
-	public ResponseEntity<CargoAdmnistrativo> createCargoAdmnistrativo(@RequestBody CargoAdmnistrativo entity) {
-		return new ResponseEntity<CargoAdmnistrativo>(service.create(entity), HttpStatus.CREATED);
+	public ResponseEntity<CargoAdministrativo> createCargoAdmnistrativo(@RequestBody CargoAdministrativo entity) {
+		return new ResponseEntity<CargoAdministrativo>(service.create(entity), HttpStatus.CREATED);
 	}
 	
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<CargoAdmnistrativo> updateCargoAdmnistrativo(
-			@RequestBody CargoAdmnistrativo entity, @PathVariable("id") Integer id) {
-		return new ResponseEntity<CargoAdmnistrativo>(service.update(entity, id), HttpStatus.CREATED);
+	public ResponseEntity<CargoAdministrativo> updateCargoAdmnistrativo(
+			@RequestBody CargoAdministrativo entity, @PathVariable("id") Integer id) {
+		return new ResponseEntity<CargoAdministrativo>(service.update(entity, id), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<CargoAdmnistrativo> deleteCargoAdmnistrativo(@PathVariable("id") Integer id){
+	public ResponseEntity<CargoAdministrativo> deleteCargoAdmnistrativo(@PathVariable("id") Integer id){
 		service.delete(id);
-		return new ResponseEntity<CargoAdmnistrativo>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<CargoAdministrativo>(HttpStatus.NO_CONTENT);
 	}
 }
