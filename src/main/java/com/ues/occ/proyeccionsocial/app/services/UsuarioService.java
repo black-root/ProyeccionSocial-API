@@ -1,9 +1,17 @@
 package com.ues.occ.proyeccionsocial.app.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ues.occ.proyeccionsocial.app.entities.Usuario;
@@ -11,13 +19,13 @@ import com.ues.occ.proyeccionsocial.app.repository.RolUsuarioRepository;
 import com.ues.occ.proyeccionsocial.app.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@Autowired
 	private UsuarioRepository usuarioDao;
-
-	@Autowired
-	private RolUsuarioRepository rolUsuarioDao;
 
 	public Iterable<Usuario> findAllUsuarios() {
 		return usuarioDao.findAll();
@@ -35,19 +43,18 @@ public class UsuarioService {
 	public Usuario createUsuario(Usuario entity) {
 		entity.setNombre(entity.getNombre().toUpperCase());
 		entity.setApellido(entity.getApellido().toUpperCase());
+		entity.setClave(encoder.encode(entity.getClave()));
 		return usuarioDao.save(entity);
 	}
 
 	public Usuario updateUsuario(Usuario entity, Integer id) {
-		Optional<Usuario> u = usuarioDao.findById(id);
-		String descrRolUsuario = rolUsuarioDao.findById(entity.getRolUsuario().getRolID()).get().getDescripcion();
-
+		Usuario u = usuarioDao.findById(id).get();
 		if (u != null && entity.getRolUsuario().getRolID() != null) {
+			
 			entity.setUsuarioID(id);
 			entity.setApellido(entity.getApellido().toUpperCase());
 			entity.setNombre(entity.getNombre().toUpperCase());
-			entity.getRolUsuario().setRolID(entity.getRolUsuario().getRolID());
-			entity.getRolUsuario().setDescripcion(descrRolUsuario);
+			entity.setClave(encoder.encode(entity.getClave()));
 
 			return usuarioDao.save(entity);
 		} else {
@@ -66,5 +73,18 @@ public class UsuarioService {
 			return false;
 		}
 
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		Usuario user = usuarioDao.findByNombre(username);
+		
+		//upgrade it using roles from the database
+		List<GrantedAuthority> roles = new ArrayList<>();
+		roles.add(new SimpleGrantedAuthority("ADMIN"));
+		
+		UserDetails userDet = new User(user.getNombre(), user.getClave(), roles);
+		return userDet;
 	}
 }

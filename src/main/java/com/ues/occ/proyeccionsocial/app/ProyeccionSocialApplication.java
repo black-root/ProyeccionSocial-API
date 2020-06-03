@@ -8,6 +8,7 @@ public class ProyeccionSocialApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyeccionSocialApplication.class, args);
+
 	}
 
 }

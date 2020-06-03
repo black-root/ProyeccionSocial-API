@@ -50,8 +50,7 @@ public class UsuarioController {
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario entity, @PathVariable("id") Integer usuarioID) {
 		if (usuarioID > 0 && usuarioID != null && !entity.getNombre().isEmpty() && !entity.getApellido().isEmpty()
-				&& !entity.getClave().isEmpty() && !entity.getEmail().isEmpty()
-				&& !entity.getRolUsuario().getDescripcion().isEmpty()) {
+				&& !entity.getClave().isEmpty() && !entity.getEmail().isEmpty()) {
 
 			return new ResponseEntity<>(usuarioService.updateUsuario(entity, usuarioID), HttpStatus.OK);
 
