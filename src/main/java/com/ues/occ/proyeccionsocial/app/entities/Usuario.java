@@ -16,7 +16,7 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usuario_id")
 	private Integer usuarioID;
 
@@ -97,6 +97,17 @@ public class Usuario implements Serializable {
 			RolUsuario rolUsuario) {
 		super();
 		//this.usuarioID = usuarioID;
+		this.nombre = nombre;
+		Apellido = apellido;
+		this.email = email;
+		this.clave = clave;
+		this.rolUsuario = rolUsuario;
+	}
+	
+	public Usuario(Integer usuarioID, String nombre, String apellido, String email, String clave,
+			RolUsuario rolUsuario) {
+		super();
+		this.usuarioID = usuarioID;
 		this.nombre = nombre;
 		Apellido = apellido;
 		this.email = email;

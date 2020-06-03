@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ues.occ.proyeccionsocial.app.entities.Usuario;
-import com.ues.occ.proyeccionsocial.app.repository.RolUsuarioRepository;
 import com.ues.occ.proyeccionsocial.app.repository.UsuarioRepository;
 
 @Service

@@ -23,7 +23,7 @@ public class RolUsuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rol_id",length = 2)
 	private Integer rolID;
 	
