@@ -77,7 +77,7 @@ public class UsuarioService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		Usuario user = usuarioDao.findByNombre(username);
+		Usuario user = usuarioDao.findByNombre(username.toUpperCase());
 		
 		//upgrade it using roles from the database
 		List<GrantedAuthority> roles = new ArrayList<>();
