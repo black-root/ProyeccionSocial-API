@@ -25,11 +25,6 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping("/login")
-	public String login(){
-		return "authenticated successfully";
-	}
-	
 	@GetMapping(value = "/all")
 	public Iterable<Usuario> getAllUsuarios() {
 		return usuarioService.findAllUsuarios();

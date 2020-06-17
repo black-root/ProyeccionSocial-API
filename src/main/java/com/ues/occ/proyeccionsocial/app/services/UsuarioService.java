@@ -1,27 +1,17 @@
 package com.ues.occ.proyeccionsocial.app.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import com.ues.occ.proyeccionsocial.app.entities.Usuario;
 import com.ues.occ.proyeccionsocial.app.repository.UsuarioRepository;
 
 @Service
-public class UsuarioService implements UserDetailsService {
-
-	@Autowired
-	private BCryptPasswordEncoder encoder;
+public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioDao;
@@ -42,7 +32,7 @@ public class UsuarioService implements UserDetailsService {
 	public Usuario createUsuario(Usuario entity) {
 		entity.setNombre(entity.getNombre().toUpperCase());
 		entity.setApellido(entity.getApellido().toUpperCase());
-		entity.setClave(encoder.encode(entity.getClave()));
+		entity.setClave(entity.getClave());
 		return usuarioDao.save(entity);
 	}
 
@@ -53,7 +43,7 @@ public class UsuarioService implements UserDetailsService {
 			entity.setUsuarioID(id);
 			entity.setApellido(entity.getApellido().toUpperCase());
 			entity.setNombre(entity.getNombre().toUpperCase());
-			entity.setClave(encoder.encode(entity.getClave()));
+			entity.setClave(entity.getClave());
 
 			return usuarioDao.save(entity);
 		} else {
@@ -72,18 +62,5 @@ public class UsuarioService implements UserDetailsService {
 			return false;
 		}
 
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		Usuario user = usuarioDao.findByNombre(username.toUpperCase());
-		
-		//upgrade it using roles from the database
-		List<GrantedAuthority> roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("ADMIN"));
-		
-		UserDetails userDet = new User(user.getNombre(), user.getClave(), roles);
-		return userDet;
 	}
 }
