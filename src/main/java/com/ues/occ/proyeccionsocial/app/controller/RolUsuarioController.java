@@ -25,7 +25,7 @@ public class RolUsuarioController {
 	@Autowired
 	private RolUsuarioService rolUsuarioService;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/")
 	public Iterable<RolUsuario> getAllRolUsuario(){
 		return rolUsuarioService.findAllRolUsuario();
 	}
@@ -35,17 +35,17 @@ public class RolUsuarioController {
 		return rolUsuarioService.findById(id);
 	}
 	
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/")
 	public RolUsuario createRolUsuario(@RequestBody RolUsuario entity) {
 		return rolUsuarioService.createRolUsuario(entity);
 	}
 	
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public void deleteRolUsuario(@PathVariable("id") Integer id) {
 		rolUsuarioService.deleteRolUsuario(id);
 	}
 	
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public RolUsuario updateRolUsuario(@RequestBody RolUsuario entity, @PathVariable("id") Integer id) {	
 		return rolUsuarioService.updateRolUsuario(entity, id);
 	}

@@ -25,7 +25,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/")
 	public Iterable<Usuario> getAllUsuarios() {
 		return usuarioService.findAllUsuarios();
 	}
@@ -35,12 +35,12 @@ public class UsuarioController {
 		return usuarioService.findById(id);
 	}
 
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/")
 	public Usuario createUsuario(@RequestBody Usuario entity) {
 		return usuarioService.createUsuario(entity);
 	}
 
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") Integer id) {
 		if (usuarioService.deleteUsuario(id) == true) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -49,7 +49,7 @@ public class UsuarioController {
 		}
 	}
 
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario entity, @PathVariable("id") Integer usuarioID) {
 		if (usuarioID > 0 && usuarioID != null && !entity.getNombre().isEmpty() && !entity.getApellido().isEmpty()
 				&& !entity.getClave().isEmpty() && !entity.getEmail().isEmpty()) {

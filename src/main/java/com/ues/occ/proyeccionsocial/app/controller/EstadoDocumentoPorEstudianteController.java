@@ -3,6 +3,7 @@ package com.ues.occ.proyeccionsocial.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ues.occ.proyeccionsocial.app.entities.EstadoDocumentoPorEstudiante;
 import com.ues.occ.proyeccionsocial.app.services.EstadoDocumentoPorEstudianteService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/proyeccion-social/estado-documento-por-estudiante")
 public class EstadoDocumentoPorEstudianteController {
@@ -30,19 +32,19 @@ public class EstadoDocumentoPorEstudianteController {
 				service.findById(documentosRequeridosId, progresoEstudianteId), HttpStatus.ACCEPTED);
 	}
 
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/")
 	public Iterable<EstadoDocumentoPorEstudiante> findAll() {
 		return service.findAll();
 	}
 
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/")
 	public ResponseEntity<EstadoDocumentoPorEstudiante> create(
 			@RequestBody EstadoDocumentoPorEstudiante entity) {
 		return new ResponseEntity<EstadoDocumentoPorEstudiante>(
 				service.create(entity), HttpStatus.CREATED);
 	}
 	
-	@PutMapping(value = "/update/{documentosRequeridosId}&{progresoEstudianteId:.+}")
+	@PutMapping(value = "/{documentosRequeridosId}&{progresoEstudianteId:.+}")
 	public ResponseEntity<EstadoDocumentoPorEstudiante> update(
 			@RequestBody EstadoDocumentoPorEstudiante entity,
 			@PathVariable("documentosRequeridosId") Integer documentosRequeridosId,
@@ -52,7 +54,7 @@ public class EstadoDocumentoPorEstudianteController {
 				HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(value = "/delete/{documentosRequeridosId}&{progresoEstudianteId:.+}")
+	@DeleteMapping(value = "/{documentosRequeridosId}&{progresoEstudianteId:.+}")
 	public ResponseEntity<EstadoDocumentoPorEstudiante> delete(
 			@PathVariable("documentosRequeridosId") Integer documentosRequeridosId,
 			@PathVariable("progresoEstudianteId") String progresoEstudianteId){

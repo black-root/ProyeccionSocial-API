@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ues.occ.proyeccionsocial.app.entities.Departamento;
 import com.ues.occ.proyeccionsocial.app.services.DepartamentoService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/proyeccion-social/departamento")
 public class DepartamentoController {
@@ -29,23 +31,23 @@ public class DepartamentoController {
 		return departamentoService.findById(id);
 	}
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/")
 	public Iterable<Departamento> getAllDepartamentos(){
 		return departamentoService.findAll();
 	}
 	
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/")
 	public ResponseEntity<Departamento> createDepartamento(@RequestBody Departamento departamento){
 		return new ResponseEntity<Departamento>(departamentoService.createDepartamento(departamento), HttpStatus.CREATED);
 	}
 	
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<Departamento> updateDepartamento(
 			@RequestBody Departamento departamento, @PathVariable("id") Integer id){
 		return new ResponseEntity<Departamento>(departamentoService.updateDepartamento(departamento, id), HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Departamento> deleteDepartamento(@PathVariable("id") Integer id){
 		
 		departamentoService.delete(id);

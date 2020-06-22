@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ues.occ.proyeccionsocial.app.entities.DocumentosRequeridos;
 import com.ues.occ.proyeccionsocial.app.services.DocumentosRequeridosService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/proyeccion-social/documentos-requeridos")
 public class DocumentosRequeridosController {
@@ -24,7 +26,7 @@ public class DocumentosRequeridosController {
 	@Autowired
 	private DocumentosRequeridosService docReqService;
 
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/")
 	public Iterable<DocumentosRequeridos> getAllDocumentosRequeridos() {
 		return docReqService.findAll();
 	}
@@ -34,7 +36,7 @@ public class DocumentosRequeridosController {
 		return docReqService.findById(id);
 	}
 
-	@PostMapping(value = "/create")
+	@PostMapping(value = "/")
 	public ResponseEntity<DocumentosRequeridos> createDocumentosRequeridos(@RequestBody DocumentosRequeridos entity) {
 
 		return new ResponseEntity<DocumentosRequeridos>(docReqService.createDoccumentosRequeridos(entity),
@@ -42,7 +44,7 @@ public class DocumentosRequeridosController {
 
 	}
 
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/{id}")
 	public void deleteDocumentosRequeridos(@PathVariable("id") Integer id) {
 		/*
 		 * if(docReqService.deleteById(eventoId, documentoId) == true ) { return new
@@ -53,7 +55,7 @@ public class DocumentosRequeridosController {
 		// .return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/{id}")
 	public ResponseEntity<DocumentosRequeridos> updateDocumentosRequeridos(@RequestBody DocumentosRequeridos entity,
 			@PathVariable("id") Integer id) {
 		if (id > 0 && entity != null && entity.getCantidadDeCopias() >= 0) {
