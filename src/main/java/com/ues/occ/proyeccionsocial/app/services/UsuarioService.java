@@ -56,7 +56,7 @@ public class UsuarioService {
 
 		Optional<Usuario> usuario = usuarioDao.findById(id);
 		if (usuario.isPresent()) {
-			usuarioDao.deleteUsuario(id);
+			usuarioDao.deleteById(id);
 			return true;
 		} else {
 			return false;

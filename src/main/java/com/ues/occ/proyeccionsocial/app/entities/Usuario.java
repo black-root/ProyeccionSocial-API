@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,7 +34,8 @@ public class Usuario implements Serializable {
 	private String clave;
 
 	//@ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@ManyToOne(optional = false)
+	@ManyToOne()
+	@JoinColumn(name = "rol_usuario_rol_id", referencedColumnName = "rol_id")
 	private RolUsuario rolUsuario;
 
 	protected Usuario() {

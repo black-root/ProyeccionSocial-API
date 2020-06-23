@@ -1,4 +1,4 @@
-package com.ues.occ.proyeccionsocial.app.entities;
+	package com.ues.occ.proyeccionsocial.app.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;

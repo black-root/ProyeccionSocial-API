@@ -30,7 +30,7 @@ public class RolUsuario implements Serializable{
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
 
-	@OneToMany(mappedBy = "rolUsuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Usuario.class, mappedBy = "rolUsuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Usuario> usuario; 
 	
 	public RolUsuario() {
